@@ -31,16 +31,51 @@ function find() {
 }
 
 function insert(obj) {
+    console.log(Array.isArray(obj));
     connect().then(result => {
-        result.collection.insertOne(obj, function(err, res) {
-            if (err) throw err;
-            result.client.close();
-            return true;
-        });
+        if (Array.isArray(obj) == false) {
+            result.collection.insertOne(obj, function(err, res) {
+                if (err) throw err;
+                result.client.close();
+                return true;
+            });
+        } else if (Array.isArray(obj) == true) {
+            result.collection.insertMany(obj, function(err, res) {
+                if (err) throw err;
+                result.client.close();
+            });
+            console.log(obj);
+        }
     });
 }
 
+function remove(obj) {
+    connect().then(result => {
+        result.collection.deleteOne(obj, function(err, res) {
+            if (err) throw err;
+            console.log(`remove ${obj} Success`);
+            result.client.close();
+        });
+    });
+}
+// function delete(obj) {
+//     pass
+// }
+
+// const removeDocument = function(db, callback) {
+//     // Get the documents collection
+//     const collection = db.collection('documents');
+//     // Delete document where a is 3
+//     collection.deleteOne({ a : 3 }, function(err, result) {
+//       assert.equal(err, null);
+//       assert.equal(1, result.result.n);
+//       console.log("Removed the document with the field a equal to 3");
+//       callback(result);
+//     });
+//   }
 // find();
 
-// insert({ name: 'hae', age: 21 });
-// find();
+// insert({ name: 'b', age: 2 });
+// insert([{ name: 'aa', age: 2 }, { name: 'bb', age: 1 }]);
+remove({ name: 'bb', age: 1 });
+find();
