@@ -19,17 +19,28 @@ function connect() {
     });
 }
 
-function findCollection() {
+function find() {
     connect().then(result => {
-        let client = result.client;
-        let collection = result.collection;
-
-        collection.find({}).toArray(function(err, docs) {
+        result.collection.find({}).toArray(function(err, docs) {
             if (err) throw err;
-            client.close();
+            result.client.close();
             console.log(docs);
             return docs;
         });
     });
 }
-findCollection();
+
+function insert(obj) {
+    connect().then(result => {
+        result.collection.insertOne(obj, function(err, res) {
+            if (err) throw err;
+            result.client.close();
+            return true;
+        });
+    });
+}
+
+// find();
+
+// insert({ name: 'hae', age: 21 });
+// find();
