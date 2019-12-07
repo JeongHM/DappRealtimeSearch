@@ -3,19 +3,16 @@ const router = express.Router();
 const makeOptions = require('../controller/crawler');
 
 router.get('/', function(req, res, next) {
-    const resJson = makeOptions();
-    console.log(10);
-    console.log(resJson, 1);
-    // console.log(res);
-    // let host = resJson.hostname;
-    // let data = resJson.data;
-    // let date = resJson.date;
-    // res.send(host, data, date);
-});
+    makeOptions().then(result => {
+        // res.send(result);
+        // res.render -> ejs 형식으로 보내기위해서 사용
 
-// router.get('/', function(req, res, next) {
-//     res.render('crawl', { result: '' });
-// });
-// router.get('/crawing', controller.crawler);
+        res.render('crawl', {
+            host: result.hostname,
+            body: result.body,
+            date: result.date,
+        });
+    });
+});
 
 module.exports = router;
