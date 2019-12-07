@@ -19,13 +19,7 @@ function makeOptions() {
 
         options.uri = uriJson[hostname];
         options.method = 'GET';
-        // return new Promise(function(resolve, reject) {
-        //     getPageHTML(options, hostname);
-        // });
-        // return getPageHTML(options, hostname);
         resolve(getPageHTML(options, hostname));
-        // console.log('1');
-        // console.log(getPageHTML(options, hostname));
     });
 }
 
@@ -42,12 +36,6 @@ function getPageHTML(options, hostname) {
                     .rawHTML.split('\n');
                 if (hostname === 'naver') {
                     resolve(parsingNaver(hostname, docs));
-                    // return parsingNaver(hostname, docs);
-                    // return new Promise(function(resolve, reject) {
-                    //     parsingNaver(hostname, docs);
-                    // });
-                    // let result = parsingNaver(hostname, docs);
-                    // return result;
                 }
             } else {
                 return response.statusCode;
@@ -57,7 +45,6 @@ function getPageHTML(options, hostname) {
 }
 
 function parsingNaver(hostname, docs) {
-    console.log('3');
     return new Promise(function(resolve, reject) {
         let result = {};
         let data = [];
@@ -80,24 +67,10 @@ function parsingNaver(hostname, docs) {
         });
 
         result['hostname'] = hostname;
-        result['data'] = data;
+        result['body'] = data;
         result['date'] = moment().format('YYYY-MM-DD HH:mm:ss');
-        // return new Promise(function(resolve, reject) {
-        //     result;
-        // });
-        // return result;
         resolve(result);
     });
 }
 
-async1(start)
-    .then(async2)
-    .then(async3)
-    .then(result => {
-        console.log(result); // 24
-    });
-
-function main() {
-    makeOptions().then();
-}
 module.exports = makeOptions;
