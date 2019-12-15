@@ -24,7 +24,6 @@ function makeOptions() {
 }
 
 function getPageHTML(options, hostname) {
-    console.log('2');
     return new Promise(function(resolve, reject) {
         request.get(options, function(error, response, body) {
             if (error) {
