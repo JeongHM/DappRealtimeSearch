@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const makeOptions = require('../controller/crawler');
-const model = require('../model/crawler');
+const makeOptions = require('../controller/crawler.controller');
+const model = require('../model/crawler.model');
 
 router.get('/', function(req, res, next) {
     makeOptions().then(result => {
