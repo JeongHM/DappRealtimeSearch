@@ -1,19 +1,37 @@
-pragma solidity ^0.5.11;
+pragma solidity ^0.4.24;
+// {
+//     '2019-01-01 00:00:00' : [{"1" : "Park"}, {"2" : "Jeong"}]
+// }
 
 contract RealTimeSearch {
-    struct data {
-        uint8 rank;
+    
+    // Make Data form (struct)
+    struct Data {
+        string rank;
         string keyword;
-        string date;
     }
-    mapping(string => data) public naver;
-
-    function set(uint _rank, string _keyword, string _date) public {
-        naver['naver'] = data(_rank, _keyword, _date);
+    
+    // Mapping uint : Data
+    mapping(string => Data[]) DataJson;
+    Data[] DataList;
+    
+    function setData(string _rank, string _keyword) public {
+        DataList.push(Data(_rank, _keyword));
     }
-
-    function get() public view returns() {
-        return Data;
+    
+    function setTime(string _time) public {
+        DataJson[_time] = DataList;
     }
-
+    
+    function getData(string _time, uint _index) public view returns (string, string) {
+        return (DataJson[_time][_index].rank, DataJson[_time][_index].keyword);
+    }
+    
+    function resetList() public {
+        delete DataList;
+    }
+    
+    function getListLength() public view returns(uint) {
+        return DataList.length;
+    }
 }
