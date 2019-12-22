@@ -18,4 +18,29 @@ function getContract() {
         });
 }
 
-// getContract();
+function setData(rank, keyword) {
+    contract.methods
+        .setData()
+        .call({ rank: rank, keyword: keyword })
+        .then(function(res) {
+            console.log(res);
+        });
+}
+
+function setTime(time) {
+    contract.methods
+        .setTime()
+        .call({ time: time })
+        .then(function(res) {
+            console.log(res);
+        });
+}
+
+function resetData() {
+    contract.methods
+        .resetList()
+        .call({ time: time })
+        .then(function(res) {
+            console.log(res);
+        });
+}
